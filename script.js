@@ -25,7 +25,7 @@ const products = [
         name: "KPC NO STOP TEE",
         category: "tshirt",
         price: 249000,
-        image: "images/produk-01.jpg",
+        image: "011.png",
         status: "AVAILABLE",
         sizes: ["S", "M", "L", "XL"],
         description:
@@ -37,7 +37,7 @@ const products = [
         name: "NO STOP BLACK TEE",
         category: "tshirt",
         price: 249000,
-        image: "images/produk-02.jpg",
+        image: "015.png",
         status: "AVAILABLE",
         sizes: ["S", "M", "L", "XL"],
         description:
