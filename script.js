@@ -1,211 +1,259 @@
-```javascript
 /* =========================================================
-   KPC NO STOP — FINAL JAVASCRIPT
-   Catalog / Filter / Modal / WhatsApp
-========================================================= */
+   KPC NO STOP — SCRIPT.JS
+   FINAL FIX
+   ========================================================= */
+
+"use strict";
+
+/* =========================================================
+   CONFIGURATION
+   ========================================================= */
+
+const whatsappNumber = "6281234567890";
+
+const instagramURL = "https://www.instagram.com/kpc_nostop/";
 
 
 /* =========================================================
    PRODUCT DATABASE
-========================================================= */
+   Tambahkan produk baru di bagian ini
+   ========================================================= */
 
 const products = [
-
     {
-        id: "KPC 001",
+        id: "KPC-001",
         name: "KPC NO STOP TEE",
         category: "tshirt",
-        categoryName: "T-SHIRT",
         price: 249000,
         image: "images/produk-01.jpg",
         status: "AVAILABLE",
+        sizes: ["S", "M", "L", "XL"],
         description:
-            "KPC No Stop signature tee. Designed for everyday riding, street culture and those who keep moving.",
-        sizes: ["S", "M", "L", "XL"]
+            "KPC No Stop Tee dengan karakter streetwear dan motorcycle culture. Cocok untuk riding maupun daily wear."
     },
 
     {
-        id: "KPC 002",
+        id: "KPC-002",
         name: "NO STOP BLACK TEE",
         category: "tshirt",
-        categoryName: "T-SHIRT",
         price: 249000,
         image: "images/produk-02.jpg",
         status: "AVAILABLE",
+        sizes: ["S", "M", "L", "XL"],
         description:
-            "Clean black tee with KPC No Stop identity. Simple, bold and made for everyday wear.",
-        sizes: ["S", "M", "L", "XL"]
+            "Black tee dengan desain clean dan bold khas KPC No Stop."
     },
 
     {
-        id: "KPC 003",
+        id: "KPC-003",
         name: "KPC RIDER HOODIE",
         category: "hoodie",
-        categoryName: "HOODIE",
         price: 399000,
         image: "images/produk-03.jpg",
         status: "AVAILABLE",
+        sizes: ["S", "M", "L", "XL"],
         description:
-            "Heavy streetwear hoodie built for riders and everyday city movement.",
-        sizes: ["S", "M", "L", "XL"]
+            "Hoodie premium untuk rider dengan tampilan heavyweight street style."
     },
 
     {
-        id: "KPC 004",
+        id: "KPC-004",
         name: "KPC RIDER JACKET",
         category: "jacket",
-        categoryName: "JACKET",
         price: 549000,
         image: "images/produk-04.jpg",
         status: "AVAILABLE",
+        sizes: ["S", "M", "L", "XL"],
         description:
-            "KPC riding jacket with a strong street silhouette for riders who never stop.",
-        sizes: ["S", "M", "L", "XL"]
+            "Rider jacket dengan karakter tegas untuk melengkapi style KPC No Stop."
     },
 
     {
-        id: "KPC 005",
+        id: "KPC-005",
         name: "KPC CAP",
         category: "accessories",
-        categoryName: "ACCESSORIES",
         price: 149000,
         image: "images/produk-05.jpg",
         status: "AVAILABLE",
+        sizes: ["ALL SIZE"],
         description:
-            "KPC No Stop everyday cap. Minimal design with signature KPC identity.",
-        sizes: ["ALL SIZE"]
+            "KPC No Stop cap untuk melengkapi outfit riding dan streetwear."
     },
 
     {
-        id: "KPC 006",
+        id: "KPC-006",
         name: "KPC SIGNATURE TEE",
         category: "tshirt",
-        categoryName: "T-SHIRT",
         price: 279000,
         image: "images/produk-06.jpg",
         status: "SOLD OUT",
+        sizes: ["S", "M", "L", "XL"],
         description:
-            "Signature KPC tee created for the No Stop community.",
-        sizes: ["S", "M", "L", "XL"]
+            "Signature tee dengan desain eksklusif KPC No Stop."
     }
-
 ];
 
 
 /* =========================================================
-   WHATSAPP NUMBER
-========================================================= */
-
-/*
-   GANTI NOMOR DI BAWAH DENGAN NOMOR WHATSAPP KPC.
-
-   Format:
-   628xxxxxxxxxx
-
-   Jangan menggunakan:
-   +62
-   08
-   tanda -
-   atau spasi
-*/
-
-const whatsappNumber = "6281234567890";
-
-
-/* =========================================================
    DOM ELEMENTS
-========================================================= */
+   ========================================================= */
 
-const productGrid =
-    document.getElementById("productGrid");
+const productGrid = document.getElementById("productGrid");
 
-const productModal =
-    document.getElementById("productModal");
+const modal = document.getElementById("productModal");
 
-const modalBackdrop =
-    document.getElementById("modalBackdrop");
+const modalImage = document.getElementById("modalImage");
+const modalCode = document.getElementById("modalCode");
+const modalName = document.getElementById("modalName");
+const modalPrice = document.getElementById("modalPrice");
+const modalDescription = document.getElementById("modalDescription");
+const modalSizes = document.getElementById("modalSizes");
 
-const modalClose =
-    document.getElementById("modalClose");
+const orderButton = document.getElementById("orderButton");
 
-const modalImage =
-    document.getElementById("modalImage");
+const closeModalButton = document.getElementById("closeModal");
 
-const modalCode =
-    document.getElementById("modalCode");
+const filterButtons = document.querySelectorAll(".filter-btn");
 
-const modalName =
-    document.getElementById("modalName");
+const menuToggle = document.getElementById("menuToggle");
 
-const modalPrice =
-    document.getElementById("modalPrice");
+const navMenu = document.getElementById("navMenu");
 
-const modalDescription =
-    document.getElementById("modalDescription");
-
-const orderButton =
-    document.getElementById("orderButton");
-
-const menuToggle =
-    document.getElementById("menuToggle");
-
-const navMenu =
-    document.getElementById("navMenu");
-
-const navbar =
-    document.querySelector(".navbar");
-
-const currentYear =
-    document.getElementById("currentYear");
+const navbar = document.querySelector(".navbar");
 
 
 /* =========================================================
-   CURRENT PRODUCT
-========================================================= */
+   STATE
+   ========================================================= */
 
-let currentProduct = null;
-
+let selectedProduct = null;
 let selectedSize = null;
 
 
 /* =========================================================
-   FORMAT PRICE
-========================================================= */
+   FORMAT RUPIAH
+   ========================================================= */
 
-function formatPrice(price) {
-
+function formatRupiah(number) {
     return new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR",
-        maximumFractionDigits: 0
-    }).format(price);
+        minimumFractionDigits: 0
+    }).format(number);
+}
 
+
+/* =========================================================
+   FALLBACK IMAGE
+   Tidak menggunakan website eksternal
+   ========================================================= */
+
+function getFallbackImage(productName = "KPC NO STOP") {
+
+    const safeName = productName
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+
+    const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="800"
+             height="1000"
+             viewBox="0 0 800 1000">
+
+            <rect width="800"
+                  height="1000"
+                  fill="#111111"/>
+
+            <rect x="35"
+                  y="35"
+                  width="730"
+                  height="930"
+                  fill="none"
+                  stroke="#ffffff"
+                  stroke-opacity="0.15"
+                  stroke-width="2"/>
+
+            <text x="400"
+                  y="440"
+                  text-anchor="middle"
+                  fill="#ffffff"
+                  font-size="72"
+                  font-family="Arial, sans-serif"
+                  font-weight="900">
+                KPC
+            </text>
+
+            <text x="400"
+                  y="510"
+                  text-anchor="middle"
+                  fill="#ffffff"
+                  font-size="34"
+                  font-family="Arial, sans-serif"
+                  letter-spacing="6">
+                NO STOP
+            </text>
+
+            <text x="400"
+                  y="575"
+                  text-anchor="middle"
+                  fill="#888888"
+                  font-size="20"
+                  font-family="Arial, sans-serif">
+                ${safeName}
+            </text>
+
+        </svg>
+    `;
+
+    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+}
+
+
+/* =========================================================
+   IMAGE ERROR HANDLER
+   ========================================================= */
+
+function handleImageError(imageElement, productName) {
+
+    if (!imageElement) return;
+
+    imageElement.onerror = null;
+
+    imageElement.src = getFallbackImage(productName);
 }
 
 
 /* =========================================================
    RENDER PRODUCTS
-========================================================= */
+   ========================================================= */
 
 function renderProducts(filter = "all") {
 
-    if (!productGrid) return;
-
-    productGrid.innerHTML = "";
+    if (!productGrid) {
+        console.warn("productGrid tidak ditemukan.");
+        return;
+    }
 
     const filteredProducts =
         filter === "all"
             ? products
-            : products.filter(
-                product => product.category === filter
-            );
+            : products.filter(product => product.category === filter);
 
+
+    /* CLEAR GRID */
+
+    productGrid.innerHTML = "";
+
+
+    /* EMPTY STATE */
 
     if (filteredProducts.length === 0) {
 
         productGrid.innerHTML = `
             <div class="empty-products">
-                <p>NO PRODUCTS FOUND.</p>
+                <p>Produk belum tersedia.</p>
             </div>
         `;
 
@@ -213,19 +261,18 @@ function renderProducts(filter = "all") {
     }
 
 
+    /* CREATE PRODUCT CARD */
+
     filteredProducts.forEach((product, index) => {
 
-        const card =
-            document.createElement("article");
+        const card = document.createElement("article");
 
         card.className = "product-card reveal";
 
-        card.dataset.category =
-            product.category;
-
+        card.dataset.category = product.category;
 
         const soldOut =
-            product.status.toLowerCase() === "sold out";
+            product.status.toUpperCase() === "SOLD OUT";
 
 
         card.innerHTML = `
@@ -235,54 +282,72 @@ function renderProducts(filter = "all") {
                 <img
                     src="${product.image}"
                     alt="${product.name}"
-                    loading="${index < 4 ? "eager" : "lazy"}"
-                    onerror="this.src='https://placehold.co/800x1000/111111/ffffff?text=KPC+NO+STOP'"
+                    loading="lazy"
+                    decoding="async"
                 >
 
                 <span class="product-number">
-                    ${product.id}
+                    ${String(index + 1).padStart(2, "0")}
                 </span>
 
-                <span
-                    class="product-status ${soldOut ? "sold-out" : ""}"
-                >
+                <span class="product-status ${soldOut ? "sold-out" : ""}">
                     ${product.status}
                 </span>
 
-            </div>
-
-
-            <div class="product-info">
-
-                <span class="product-category">
-                    ${product.categoryName}
-                </span>
-
-                <h3 class="product-name">
-                    ${product.name}
-                </h3>
-
-                <div class="product-price">
-                    ${formatPrice(product.price)}
+                <div class="product-overlay">
+                    <span>VIEW PRODUCT</span>
                 </div>
 
             </div>
 
+            <div class="product-info">
+
+                <span class="product-category">
+                    ${product.category.toUpperCase()}
+                </span>
+
+                <h3>${product.name}</h3>
+
+                <div class="product-bottom">
+
+                    <strong>
+                        ${formatRupiah(product.price)}
+                    </strong>
+
+                    <button
+                        class="view-product"
+                        type="button"
+                        aria-label="Lihat ${product.name}"
+                    >
+                        VIEW
+                    </button>
+
+                </div>
+
+            </div>
         `;
 
 
-        if (!soldOut) {
+        /* IMAGE FALLBACK */
 
-            card.addEventListener(
-                "click",
-                () => openProduct(product)
-            );
+        const image = card.querySelector("img");
 
-        } else {
+        if (image) {
 
-            card.classList.add("is-sold-out");
+            image.addEventListener("error", () => {
+                handleImageError(image, product.name);
+            });
 
         }
+
+
+        /* OPEN MODAL */
+
+        card.addEventListener("click", () => {
+
+            openProduct(product);
+
+        });
 
 
         productGrid.appendChild(card);
@@ -290,387 +355,527 @@ function renderProducts(filter = "all") {
     });
 
 
-    initRevealAnimations();
+    /* REFRESH REVEAL */
 
+    initializeRevealAnimations();
 }
 
 
 /* =========================================================
    OPEN PRODUCT MODAL
-========================================================= */
+   ========================================================= */
 
 function openProduct(product) {
 
-    currentProduct = product;
+    if (!modal) return;
+
+    selectedProduct = product;
 
     selectedSize = null;
 
 
-    if (!productModal) return;
+    /* IMAGE */
+
+    if (modalImage) {
+
+        modalImage.onerror = null;
+
+        modalImage.src = product.image;
+
+        modalImage.alt = product.name;
+
+        modalImage.onerror = () => {
+
+            handleImageError(
+                modalImage,
+                product.name
+            );
+
+        };
+    }
 
 
-    modalImage.src = product.image;
-    modalImage.alt = product.name;
+    /* TEXT */
 
-    modalCode.textContent =
-        product.id;
+    if (modalCode) {
+        modalCode.textContent = product.id;
+    }
 
-    modalName.textContent =
-        product.name;
+    if (modalName) {
+        modalName.textContent = product.name;
+    }
 
-    modalPrice.textContent =
-        formatPrice(product.price);
+    if (modalPrice) {
+        modalPrice.textContent =
+            formatRupiah(product.price);
+    }
 
-    modalDescription.textContent =
-        product.description;
-
-
-    /*
-       UPDATE SIZE BUTTONS
-    */
-
-    const sizeButtons =
-        document.querySelectorAll(".size-btn");
+    if (modalDescription) {
+        modalDescription.textContent =
+            product.description;
+    }
 
 
-    sizeButtons.forEach(button => {
+    /* SIZE */
 
-        button.classList.remove("active");
+    renderSizes(product);
 
-        const size =
-            button.dataset.size;
 
+    /* ORDER BUTTON */
+
+    if (orderButton) {
 
         if (
-            product.sizes.includes(size)
+            product.status.toUpperCase() ===
+            "SOLD OUT"
         ) {
 
-            button.style.display = "";
+            orderButton.disabled = true;
+
+            orderButton.textContent =
+                "SOLD OUT";
+
+            orderButton.classList.add(
+                "disabled"
+            );
 
         } else {
 
-            button.style.display = "none";
+            orderButton.disabled = false;
 
+            orderButton.textContent =
+                "ORDER VIA WHATSAPP";
+
+            orderButton.classList.remove(
+                "disabled"
+            );
         }
-
-    });
-
-
-    /*
-       UPDATE ORDER BUTTON
-    */
-
-    orderButton.classList.remove("disabled");
-
-    orderButton.style.pointerEvents = "none";
-
-    orderButton.style.opacity = "0.45";
-
-    orderButton.innerHTML = `
-        SELECT SIZE
-        <span>↓</span>
-    `;
+    }
 
 
-    /*
-       OPEN MODAL
-    */
+    /* SHOW MODAL */
 
-    productModal.classList.add("active");
+    modal.classList.add("active");
 
-    productModal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    document.body.classList.add(
-        "modal-open"
-    );
+    document.body.classList.add("modal-open");
 
 }
 
 
 /* =========================================================
    CLOSE PRODUCT MODAL
-========================================================= */
+   ========================================================= */
 
 function closeProduct() {
 
-    if (!productModal) return;
+    if (!modal) return;
 
-    productModal.classList.remove("active");
-
-    productModal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
+    modal.classList.remove("active");
 
     document.body.classList.remove(
         "modal-open"
     );
 
-    currentProduct = null;
+    selectedProduct = null;
 
     selectedSize = null;
+}
+
+
+/* =========================================================
+   RENDER SIZE BUTTONS
+   ========================================================= */
+
+function renderSizes(product) {
+
+    if (!modalSizes) return;
+
+    modalSizes.innerHTML = "";
+
+
+    product.sizes.forEach((size, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+
+        button.className = "size-btn";
+
+        button.textContent = size;
+
+
+        /* DEFAULT FIRST SIZE */
+
+        if (index === 0) {
+
+            button.classList.add("active");
+
+            selectedSize = size;
+        }
+
+
+        /* CLICK SIZE */
+
+        button.addEventListener("click", () => {
+
+            modalSizes
+                .querySelectorAll(".size-btn")
+                .forEach(btn => {
+
+                    btn.classList.remove(
+                        "active"
+                    );
+
+                });
+
+
+            button.classList.add("active");
+
+            selectedSize = size;
+
+        });
+
+
+        modalSizes.appendChild(button);
+
+    });
 
 }
 
 
 /* =========================================================
-   SIZE SELECTION
-========================================================= */
+   WHATSAPP ORDER
+   ========================================================= */
 
-document.querySelectorAll(".size-btn")
-    .forEach(button => {
+function orderViaWhatsApp() {
 
-        button.addEventListener(
-            "click",
-            function () {
-
-                if (!currentProduct) return;
+    if (!selectedProduct) return;
 
 
-                /*
-                   RESET ACTIVE SIZE
-                */
+    /* SOLD OUT */
 
-                document
-                    .querySelectorAll(".size-btn")
-                    .forEach(btn =>
-                        btn.classList.remove("active")
-                    );
+    if (
+        selectedProduct.status.toUpperCase() ===
+        "SOLD OUT"
+    ) {
 
+        return;
 
-                /*
-                   SET SELECTED SIZE
-                */
-
-                this.classList.add("active");
-
-                selectedSize =
-                    this.dataset.size;
+    }
 
 
-                /*
-                   ENABLE WHATSAPP BUTTON
-                */
+    /* SIZE */
 
-                orderButton.style.pointerEvents =
-                    "auto";
+    if (!selectedSize) {
 
-                orderButton.style.opacity =
-                    "1";
-
-                orderButton.innerHTML = `
-                    ORDER VIA WHATSAPP
-                    <span>↗</span>
-                `;
-
-            }
+        alert(
+            "Silakan pilih ukuran terlebih dahulu."
         );
 
-    });
+        return;
+
+    }
 
 
-/* =========================================================
-   WHATSAPP ORDER
-========================================================= */
-
-if (orderButton) {
-
-    orderButton.addEventListener(
-        "click",
-        function (event) {
-
-            event.preventDefault();
-
-
-            if (!currentProduct) return;
-
-
-            if (!selectedSize) {
-
-                alert(
-                    "Silakan pilih ukuran terlebih dahulu."
-                );
-
-                return;
-
-            }
-
-
-            const message =
+    const message =
 
 `Halo KPC No Stop 👋
 
 Saya ingin order:
 
-Produk:
-${currentProduct.name}
+Produk: ${selectedProduct.name}
+Kode: ${selectedProduct.id}
+Ukuran: ${selectedSize}
+Harga: ${formatRupiah(selectedProduct.price)}
 
-Kode:
-${currentProduct.id}
+Apakah produk ini masih tersedia?
 
-Harga:
-${formatPrice(currentProduct.price)}
-
-Size:
-${selectedSize}
-
-Apakah produk ini masih tersedia?`;
+Terima kasih.`;
 
 
-            const whatsappURL =
-                `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    const whatsappURL =
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
 
-            window.open(
-                whatsappURL,
-                "_blank"
-            );
-
-        }
+    window.open(
+        whatsappURL,
+        "_blank",
+        "noopener,noreferrer"
     );
 
 }
 
 
 /* =========================================================
-   CLOSE MODAL EVENTS
-========================================================= */
+   FILTER PRODUCTS
+   ========================================================= */
 
-if (modalClose) {
+function initializeFilters() {
 
-    modalClose.addEventListener(
-        "click",
-        closeProduct
-    );
-
-}
+    if (!filterButtons.length) return;
 
 
-if (modalBackdrop) {
+    filterButtons.forEach(button => {
 
-    modalBackdrop.addEventListener(
-        "click",
-        closeProduct
-    );
-
-}
-
-
-/* =========================================================
-   ESCAPE KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape" &&
-            productModal.classList.contains("active")
-        ) {
-
-            closeProduct();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   PRODUCT FILTER
-========================================================= */
-
-const filterButtons =
-    document.querySelectorAll(".filter-btn");
-
-
-filterButtons.forEach(button => {
-
-    button.addEventListener(
-        "click",
-        function () {
-
-            /*
-               REMOVE ACTIVE
-            */
-
-            filterButtons.forEach(btn =>
-                btn.classList.remove("active")
-            );
-
-
-            /*
-               SET ACTIVE
-            */
-
-            this.classList.add("active");
-
-
-            /*
-               GET FILTER
-            */
+        button.addEventListener("click", () => {
 
             const filter =
-                this.dataset.filter;
+                button.dataset.filter || "all";
 
 
-            /*
-               RENDER
-            */
+            /* ACTIVE BUTTON */
+
+            filterButtons.forEach(btn => {
+
+                btn.classList.remove("active");
+
+            });
+
+
+            button.classList.add("active");
+
+
+            /* RENDER */
 
             renderProducts(filter);
 
-        }
-    );
+        });
 
-});
+    });
+
+}
 
 
 /* =========================================================
-   MOBILE NAVIGATION
-========================================================= */
+   MOBILE MENU
+   ========================================================= */
 
-if (menuToggle && navMenu) {
+function initializeMobileMenu() {
 
-    menuToggle.addEventListener(
-        "click",
-        () => {
-
-            menuToggle.classList.toggle(
-                "active"
-            );
-
-            navMenu.classList.toggle(
-                "active"
-            );
-
-        }
-    );
+    if (!menuToggle || !navMenu) return;
 
 
-    /*
-       CLOSE MENU AFTER CLICK
-    */
+    menuToggle.addEventListener("click", () => {
+
+        menuToggle.classList.toggle("active");
+
+        navMenu.classList.toggle("active");
+
+        document.body.classList.toggle(
+            "menu-open"
+        );
+
+    });
+
+
+    /* CLOSE WHEN CLICK LINK */
 
     navMenu
         .querySelectorAll("a")
         .forEach(link => {
 
+            link.addEventListener("click", () => {
+
+                menuToggle.classList.remove(
+                    "active"
+                );
+
+                navMenu.classList.remove(
+                    "active"
+                );
+
+                document.body.classList.remove(
+                    "menu-open"
+                );
+
+            });
+
+        });
+
+}
+
+
+/* =========================================================
+   NAVBAR SCROLL EFFECT
+   ========================================================= */
+
+function initializeNavbar() {
+
+    if (!navbar) return;
+
+
+    function updateNavbar() {
+
+        if (window.scrollY > 50) {
+
+            navbar.classList.add("scrolled");
+
+        } else {
+
+            navbar.classList.remove("scrolled");
+
+        }
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        updateNavbar,
+        { passive: true }
+    );
+
+
+    updateNavbar();
+
+}
+
+
+/* =========================================================
+   REVEAL ANIMATION
+   ========================================================= */
+
+function initializeRevealAnimations() {
+
+    const elements =
+        document.querySelectorAll(
+            ".reveal:not(.reveal-ready)"
+        );
+
+
+    if (!elements.length) return;
+
+
+    /* Mark initialized */
+
+    elements.forEach(element => {
+
+        element.classList.add(
+            "reveal-ready"
+        );
+
+    });
+
+
+    /* Intersection Observer */
+
+    if ("IntersectionObserver" in window) {
+
+        const observer =
+            new IntersectionObserver(
+                (entries, obs) => {
+
+                    entries.forEach(entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+                            obs.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.08,
+                    rootMargin: "0px 0px -50px 0px"
+                }
+            );
+
+
+        elements.forEach(element => {
+
+            observer.observe(element);
+
+        });
+
+    } else {
+
+        /* Fallback browser lama */
+
+        elements.forEach(element => {
+
+            element.classList.add(
+                "visible"
+            );
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   SMOOTH SCROLL
+   ========================================================= */
+
+function initializeSmoothScroll() {
+
+    document
+        .querySelectorAll('a[href^="#"]')
+        .forEach(link => {
+
             link.addEventListener(
                 "click",
-                () => {
+                event => {
 
-                    menuToggle.classList.remove(
-                        "active"
-                    );
+                    const targetID =
+                        link.getAttribute("href");
 
-                    navMenu.classList.remove(
-                        "active"
-                    );
+
+                    if (
+                        !targetID ||
+                        targetID === "#"
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const target =
+                        document.querySelector(
+                            targetID
+                        );
+
+
+                    if (!target) return;
+
+
+                    event.preventDefault();
+
+
+                    const navbarHeight =
+                        navbar
+                            ? navbar.offsetHeight
+                            : 0;
+
+
+                    const targetPosition =
+                        target.getBoundingClientRect()
+                            .top
+                        + window.scrollY
+                        - navbarHeight;
+
+
+                    window.scrollTo({
+
+                        top: targetPosition,
+
+                        behavior: "smooth"
+
+                    });
 
                 }
             );
@@ -681,250 +886,249 @@ if (menuToggle && navMenu) {
 
 
 /* =========================================================
-   NAVBAR SCROLL EFFECT
-========================================================= */
+   MODAL EVENTS
+   ========================================================= */
 
-function handleNavbar() {
+function initializeModal() {
 
-    if (!navbar) return;
-
-
-    if (window.scrollY > 50) {
-
-        navbar.classList.add("scrolled");
-
-    } else {
-
-        navbar.classList.remove("scrolled");
-
-    }
-
-}
+    if (!modal) return;
 
 
-window.addEventListener(
-    "scroll",
-    handleNavbar,
-    { passive: true }
-);
+    /* CLOSE BUTTON */
 
-handleNavbar();
+    if (closeModalButton) {
 
-
-/* =========================================================
-   REVEAL ANIMATION
-========================================================= */
-
-function initRevealAnimations() {
-
-    const revealElements =
-        document.querySelectorAll(
-            ".reveal:not(.observer-ready)"
-        );
-
-
-    if (
-        !("IntersectionObserver" in window)
-    ) {
-
-        revealElements.forEach(
-            element =>
-                element.classList.add("visible")
-        );
-
-        return;
-
-    }
-
-
-    const observer =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-
-                        entry.target.classList.add(
-                            "visible"
-                        );
-
-                        observer.unobserve(
-                            entry.target
-                        );
-
-                    }
-
-                });
-
-            },
-            {
-                threshold: 0.08
-            }
-        );
-
-
-    revealElements.forEach(element => {
-
-        element.classList.add(
-            "observer-ready"
-        );
-
-        observer.observe(element);
-
-    });
-
-}
-
-
-/* =========================================================
-   SMOOTH ANCHOR
-========================================================= */
-
-document
-    .querySelectorAll('a[href^="#"]')
-    .forEach(anchor => {
-
-        anchor.addEventListener(
+        closeModalButton.addEventListener(
             "click",
-            function (event) {
-
-                const targetID =
-                    this.getAttribute("href");
-
-
-                if (
-                    targetID === "#" ||
-                    !targetID
-                ) {
-
-                    return;
-
-                }
-
-
-                const target =
-                    document.querySelector(
-                        targetID
-                    );
-
-
-                if (!target) return;
-
-
-                event.preventDefault();
-
-
-                const navbarHeight =
-                    navbar
-                        ? navbar.offsetHeight
-                        : 0;
-
-
-                const targetPosition =
-                    target.getBoundingClientRect().top +
-                    window.scrollY -
-                    navbarHeight;
-
-
-                window.scrollTo({
-
-                    top: targetPosition,
-
-                    behavior: "smooth"
-
-                });
-
-            }
+            closeProduct
         );
 
-    });
+    }
 
 
-/* =========================================================
-   YEAR
-========================================================= */
+    /* CLICK OUTSIDE MODAL */
 
-if (currentYear) {
+    modal.addEventListener(
+        "click",
+        event => {
 
-    currentYear.textContent =
-        new Date().getFullYear();
+            if (
+                event.target === modal
+            ) {
 
-}
+                closeProduct();
 
-
-/* =========================================================
-   IMAGE PRELOAD
-========================================================= */
-
-function preloadImages() {
-
-    products.forEach(product => {
-
-        const image =
-            new Image();
-
-        image.src =
-            product.image;
-
-    });
-
-}
-
-
-/* =========================================================
-   LOADER
-========================================================= */
-
-window.addEventListener(
-    "load",
-    () => {
-
-        preloadImages();
-
-
-        const loader =
-            document.getElementById(
-                "loader"
-            );
-
-
-        if (loader) {
-
-            setTimeout(
-                () => {
-
-                    loader.classList.add(
-                        "hide"
-                    );
-
-                },
-                700
-            );
+            }
 
         }
+    );
+
+
+    /* ESC KEY */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                modal.classList.contains(
+                    "active"
+                )
+            ) {
+
+                closeProduct();
+
+            }
+
+        }
+    );
+
+
+    /* ORDER BUTTON */
+
+    if (orderButton) {
+
+        orderButton.addEventListener(
+            "click",
+            orderViaWhatsApp
+        );
 
     }
-);
+
+}
 
 
 /* =========================================================
-   INITIAL RENDER
-========================================================= */
+   INSTAGRAM LINK
+   ========================================================= */
 
-renderProducts("all");
+function initializeInstagramLinks() {
+
+    document
+        .querySelectorAll(
+            'a[href*="instagram.com"]'
+        )
+        .forEach(link => {
+
+            link.href = instagramURL;
+
+            link.target = "_blank";
+
+            link.rel =
+                "noopener noreferrer";
+
+        });
+
+}
 
 
 /* =========================================================
-   CONSOLE MESSAGE
-========================================================= */
+   CURRENT YEAR
+   ========================================================= */
 
-console.log(
-    "%c KPC NO STOP ",
-    "background:#fff;color:#000;font-weight:bold;padding:8px 15px;"
-);
+function initializeCurrentYear() {
 
-console.log(
-    "NO STOP. KEEP MOVING."
-);
-```
+    const yearElements =
+        document.querySelectorAll(
+            "#currentYear, .current-year"
+        );
+
+
+    const year =
+        new Date().getFullYear();
+
+
+    yearElements.forEach(element => {
+
+        element.textContent = year;
+
+    });
+
+}
+
+
+/* =========================================================
+   LOADER — FINAL FIX
+   ========================================================= */
+
+/*
+   Loader TIDAK lagi menunggu semua gambar selesai.
+
+   Jadi walaupun gambar:
+   - belum ada
+   - lambat
+   - gagal
+   - internet lambat
+
+   halaman tetap akan masuk.
+*/
+
+function hideLoader() {
+
+    const loader =
+        document.getElementById("loader");
+
+
+    if (!loader) return;
+
+
+    loader.classList.add("hide");
+
+
+    /* FORCE REMOVE */
+
+    setTimeout(() => {
+
+        loader.style.display = "none";
+
+    }, 900);
+
+}
+
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+function initializeApp() {
+
+    console.log(
+        "KPC No Stop — Website initialized."
+    );
+
+
+    /* PRODUCTS */
+
+    renderProducts("all");
+
+
+    /* FEATURES */
+
+    initializeFilters();
+
+    initializeMobileMenu();
+
+    initializeNavbar();
+
+    initializeRevealAnimations();
+
+    initializeSmoothScroll();
+
+    initializeModal();
+
+    initializeInstagramLinks();
+
+    initializeCurrentYear();
+
+
+    /*
+       Loader dihilangkan setelah DOM siap.
+       Tidak menunggu gambar.
+    */
+
+    setTimeout(() => {
+
+        hideLoader();
+
+    }, 500);
+
+}
+
+
+/* =========================================================
+   DOM READY
+   ========================================================= */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeApp,
+        { once: true }
+    );
+
+} else {
+
+    initializeApp();
+
+}
+
+
+/* =========================================================
+   EMERGENCY LOADER FALLBACK
+   ========================================================= */
+
+/*
+   Jika ada error JavaScript lain,
+   loader tetap akan dipaksa hilang.
+*/
+
+setTimeout(() => {
+
+    hideLoader();
+
+}, 3500);
