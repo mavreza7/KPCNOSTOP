@@ -1,269 +1,511 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#070707">
-<meta name="description" content="Kelompok Penunggang Chopper — independent motorcycle apparel.">
-<title>KPC — Kelompok Penunggang Chopper</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <title>KPC No Stop — Apparel</title>
+
+    <meta
+        name="description"
+        content="KPC No Stop — Motorcycle Apparel & Street Culture."
+    >
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="loader" id="loader">
-  <div class="loader-inner">
-    <img class="loader-logo" src="Untitled-1-Recovered.png" alt="KPC">
-    <div class="loader-line"><span></span></div>
-    <div class="loader-text">KELOMPOK PENUNGGANG CHOPPER</div>
-  </div>
-</div>
-
-<header class="nav" id="navbar">
-  <div class="nav-inner">
-
-    <!-- LOGO KPC DI KIRI ATAS -->
-    <a class="brand-logo" href="#home" aria-label="KPC Home">
-      <img src="Untitled-1-Recovered.png" alt="Kelompok Penunggang Chopper">
-    </a>
-
-    <nav class="nav-links" id="navLinks">
-      <a href="#collection">Collection</a>
-      <a href="#story">Our Story</a>
-      <a href="#lookbook">Lookbook</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <a class="nav-cta" href="#collection">Shop Drop 01</a>
-
-    <button class="menu-btn" id="menuBtn" aria-label="Buka menu" aria-expanded="false">☰</button>
-  </div>
-</header>
-
-<main>
-
-<section class="hero" id="home">
-  <div class="hero-grid"></div>
-
-  <div class="hero-content">
-    <div class="eyebrow reveal">Independent Motorcycle Apparel</div>
-
-    <h1 class="hero-title reveal">
-      Kelompok
-      <span class="outline">Penunggang</span>
-      Chopper
-    </h1>
-
-    <div class="hero-bottom reveal">
-      <p class="hero-copy">
-        Apparel untuk mereka yang memilih jalan sendiri.
-        Dibangun dari kultur jalanan, mesin, dan semangat
-        untuk tidak tunduk pada sesuatu yang seragam.
-      </p>
-
-      <div class="actions">
-        <a class="btn primary" href="#collection">Explore Collection</a>
-        <a class="btn secondary" href="#story">Our Story</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-art" id="heroArt">
-    <img src="Untitled-1-Recovered.png" alt="KPC Chopper artwork">
-  </div>
-
-  <div class="hero-scroll">SCROLL TO RIDE</div>
-</section>
-
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>KPC</span><span class="dot">✦</span>
-    <span>RIDE YOUR OWN WAY</span><span class="dot">✦</span>
-    <span>CHOPPER CULTURE</span><span class="dot">✦</span>
-    <span>KELOMPOK PENUNGGANG CHOPPER</span><span class="dot">✦</span>
-    <span>KPC</span><span class="dot">✦</span>
-    <span>RIDE YOUR OWN WAY</span><span class="dot">✦</span>
-    <span>CHOPPER CULTURE</span><span class="dot">✦</span>
-    <span>KELOMPOK PENUNGGANG CHOPPER</span><span class="dot">✦</span>
-  </div>
-</div>
-
-<section class="section" id="collection">
-  <div class="section-head reveal">
-    <div>
-      <div class="kicker">01 / Latest Release</div>
-      <h2 class="section-title">Featured<br>Drop</h2>
-    </div>
-    <div class="section-number">KPC — 001</div>
-  </div>
-
-  <div class="product reveal">
-    <div class="product-image">
-      <div class="product-label">Drop 01 / Limited</div>
-      <img src="011.png" alt="KPC Drop 01 T-shirt">
+    <!-- =========================================
+         LOADING SCREEN
+    ========================================== -->
+    <div id="loader">
+        <div class="loader-logo">KPC</div>
+        <div class="loader-line"></div>
+        <span>NO STOP</span>
     </div>
 
-    <div class="product reveal">
-    <div class="product-image">
-      <div class="product-label">Drop 01 / Limited</div>
-      <img src="015.png" alt="KPC Drop 01 T-shirt">
-    </div>
-      
-    <div class="product-info">
-      <div>
-        <div class="kicker">KPC / Essential Series</div>
-        <h3>Chopper<br>Is A<br>Poem.</h3>
-        <p>
-          Chopper bukan sekadar mesin. Ia adalah sebentuk puisi besi
-          yang ditulis di atas aspal. Sebuah identitas untuk mereka
-          yang menolak cetakan pabrik yang seragam dan membosankan.
-        </p>
-      </div>
 
-      <div class="product-bottom">
-        <div class="meta">
-          <div>
-            <small>Edition</small>
-            <strong>Drop 01</strong>
-          </div>
-          <div>
-            <small>Category</small>
-            <strong>T-Shirt</strong>
-          </div>
+    <!-- =========================================
+         NAVBAR
+    ========================================== -->
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a href="#home" class="logo">
+                <img src="images/logo.png" alt="KPC No Stop">
+            </a>
+
+            <nav class="nav-menu" id="navMenu">
+
+                <a href="#home">HOME</a>
+                <a href="#catalog">CATALOG</a>
+                <a href="#about">ABOUT</a>
+                <a href="#contact">CONTACT</a>
+
+            </nav>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Buka menu"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
         </div>
-        <a class="btn secondary" href="#contact">Order / Ask Us</a>
-      </div>
+
+    </header>
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+
+                <p class="hero-small">
+                    KPC NO STOP
+                </p>
+
+                <h1>
+                    RIDE<br>
+                    <span>WITHOUT</span><br>
+                    LIMITS.
+                </h1>
+
+                <p class="hero-description">
+                    Motorcycle apparel for those who keep moving.
+                    Built from the street. Made for the ride.
+                </p>
+
+                <a href="#catalog" class="hero-button">
+                    EXPLORE CATALOG
+                    <span>↘</span>
+                </a>
+
+            </div>
+
+            <div class="hero-bottom">
+
+                <span>EST. 2026</span>
+
+                <span class="hero-scroll">
+                    SCROLL TO EXPLORE
+                    <i>↓</i>
+                </span>
+
+                <span>NO STOP CULTURE</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             CATALOG INTRO
+        ========================================== -->
+        <section class="catalog-section" id="catalog">
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-number">01 / CATALOG</span>
+
+                        <h2>
+                            LATEST<br>
+                            <span>DROP.</span>
+                        </h2>
+                    </div>
+
+                    <p>
+                        Explore the latest KPC No Stop collection.
+                        Choose your piece and order directly through WhatsApp.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================
+                     PRODUCT FILTER
+                ================================== -->
+                <div class="catalog-filter">
+
+                    <button
+                        class="filter-btn active"
+                        data-filter="all"
+                    >
+                        ALL
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="tshirt"
+                    >
+                        T-SHIRT
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="hoodie"
+                    >
+                        HOODIE
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="jacket"
+                    >
+                        JACKET
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="accessories"
+                    >
+                        ACCESSORIES
+                    </button>
+
+                </div>
+
+
+                <!-- =================================
+                     PRODUCT GRID
+                ================================== -->
+                <div
+                    class="product-grid"
+                    id="productGrid"
+                >
+
+                    <!-- Product generated by JavaScript -->
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             BRAND STATEMENT
+        ========================================== -->
+        <section class="statement-section">
+
+            <div class="statement-overlay"></div>
+
+            <div class="statement-content">
+
+                <span>02 / THE CULTURE</span>
+
+                <h2>
+                    NO ROAD<br>
+                    <em>TOO FAR.</em>
+                </h2>
+
+                <p>
+                    KPC No Stop is more than apparel.
+                    It's a representation of movement,
+                    brotherhood and the freedom to keep going.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             ABOUT
+        ========================================== -->
+        <section class="about-section" id="about">
+
+            <div class="section-container">
+
+                <div class="about-grid">
+
+                    <div class="about-title">
+
+                        <span class="section-number">
+                            03 / ABOUT KPC
+                        </span>
+
+                        <h2>
+                            BUILT<br>
+                            FOR THE<br>
+                            <span>ROAD.</span>
+                        </h2>
+
+                    </div>
+
+
+                    <div class="about-text">
+
+                        <p class="about-lead">
+                            KPC No Stop was built around one simple idea:
+                            <strong>keep moving.</strong>
+                        </p>
+
+                        <p>
+                            Inspired by motorcycle culture, streetwear
+                            and the people who refuse to stay still.
+                            Every piece is designed to represent
+                            the attitude behind the ride.
+                        </p>
+
+                        <p>
+                            Wear it on the road.
+                            Wear it in the street.
+                            Wear it your way.
+                        </p>
+
+                        <div class="about-signature">
+                            KPC
+                            <small>NO STOP</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             INSTAGRAM / SOCIAL
+        ========================================== -->
+        <section class="social-section" id="contact">
+
+            <div class="section-container">
+
+                <div class="social-content">
+
+                    <span class="section-number">
+                        04 / FOLLOW THE RIDE
+                    </span>
+
+                    <h2>
+                        STAY<br>
+                        <span>CONNECTED.</span>
+                    </h2>
+
+                    <p>
+                        Follow KPC No Stop for new drops,
+                        upcoming releases and the latest ride.
+                    </p>
+
+                    <a
+                        href="https://www.instagram.com/kpc_nostop/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-button"
+                    >
+                        INSTAGRAM
+                        <span>↗</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <img
+                    src="images/logo.png"
+                    alt="KPC No Stop"
+                >
+
+                <p>
+                    NO STOP. KEEP MOVING.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#home">HOME</a>
+                <a href="#catalog">CATALOG</a>
+                <a href="#about">ABOUT</a>
+                <a href="#contact">CONTACT</a>
+
+            </div>
+
+
+            <div class="footer-copy">
+
+                <p>
+                    © <span id="currentYear"></span>
+                    KPC NO STOP.
+                </p>
+
+                <p>
+                    ALL RIGHTS RESERVED.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================
+         PRODUCT MODAL
+    ========================================== -->
+    <div
+        class="product-modal"
+        id="productModal"
+        aria-hidden="true"
+    >
+
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+
+        <div class="modal-content">
+
+            <button
+                class="modal-close"
+                id="modalClose"
+                aria-label="Tutup"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-product-image">
+
+                <img
+                    id="modalImage"
+                    src=""
+                    alt="Produk KPC"
+                >
+
+            </div>
+
+
+            <div class="modal-product-info">
+
+                <span
+                    class="modal-product-code"
+                    id="modalCode"
+                >
+                    KPC 001
+                </span>
+
+                <h3 id="modalName">
+                    PRODUCT NAME
+                </h3>
+
+                <div
+                    class="modal-price"
+                    id="modalPrice"
+                >
+                    Rp 0
+                </div>
+
+                <p
+                    class="modal-description"
+                    id="modalDescription"
+                >
+                    Product description.
+                </p>
+
+
+                <!-- SIZE -->
+                <div class="size-section">
+
+                    <span>SELECT SIZE</span>
+
+                    <div class="size-options">
+
+                        <button
+                            class="size-btn"
+                            data-size="S"
+                        >
+                            S
+                        </button>
+
+                        <button
+                            class="size-btn"
+                            data-size="M"
+                        >
+                            M
+                        </button>
+
+                        <button
+                            class="size-btn"
+                            data-size="L"
+                        >
+                            L
+                        </button>
+
+                        <button
+                            class="size-btn"
+                            data-size="XL"
+                        >
+                            XL
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ORDER -->
+                <a
+                    href="#"
+                    class="order-button"
+                    id="orderButton"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    ORDER VIA WHATSAPP
+                    <span>↗</span>
+                </a>
+
+            </div>
+
+        </div>
+
     </div>
-  </div>
-</section>
 
-<section class="statement" id="story">
-  <div class="statement-inner">
-    <div class="kicker reveal">02 / The Culture</div>
 
-    <h2 class="reveal">
-      Bukan sekadar
-      <span class="outline">pakaian.</span><br>
-      Ini adalah
-      <span class="outline">identitas.</span>
-    </h2>
-
-    <p class="reveal">
-      KPC lahir dari kecintaan terhadap chopper dan kultur yang
-      mengitarinya. Bukan tentang mengikuti tren. Bukan tentang
-      menjadi sama. Ini tentang membangun sesuatu yang terasa
-      milik sendiri — dari cara kita berkendara sampai apa yang
-      kita kenakan.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head reveal">
-    <div>
-      <div class="kicker">03 / What We Stand For</div>
-      <h2 class="section-title">The<br>Code</h2>
-    </div>
-  </div>
-
-  <div class="values">
-    <article class="value reveal">
-      <div class="value-num">01</div>
-      <h3>Ride Different</h3>
-      <p>Jalan masing-masing. Tidak perlu mengikuti cetakan yang sudah dibuat orang lain.</p>
-    </article>
-
-    <article class="value reveal">
-      <div class="value-num">02</div>
-      <h3>Built With Soul</h3>
-      <p>Setiap detail membawa karakter — seperti mesin yang dibangun dengan tangan dan rasa.</p>
-    </article>
-
-    <article class="value reveal">
-      <div class="value-num">03</div>
-      <h3>Stay Independent</h3>
-      <p>Independent spirit adalah inti KPC: bebas memilih, bebas bergerak, dan bebas menjadi diri sendiri.</p>
-    </article>
-  </div>
-</section>
-
-<section class="section" id="lookbook">
-  <div class="section-head reveal">
-    <div>
-      <div class="kicker">04 / Visual Journal</div>
-      <h2 class="section-title">Lookbook</h2>
-    </div>
-    <div class="section-number">RIDE / WEAR / REPEAT</div>
-  </div>
-
-  <div class="lookbook">
-    <article class="look one reveal">
-      <div class="look-copy">
-        <span>01 — Machine</span>
-        <h3>Steel<br>& Soul</h3>
-      </div>
-    </article>
-
-    <article class="look tall two reveal">
-      <div class="look-copy">
-        <span>02 — Identity</span>
-        <h3>Wear<br>The Ride</h3>
-      </div>
-    </article>
-
-    <article class="look three reveal">
-      <div class="look-copy">
-        <span>03 — Road</span>
-        <h3>Own<br>Your Way</h3>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section class="section contact" id="contact">
-  <div class="kicker reveal">05 / Get In Touch</div>
-
-  <h2 class="reveal">
-    Ride<br>
-    <span>With Us.</span>
-  </h2>
-
-  <div class="contact-row reveal">
-    <p>
-      Untuk order apparel, kolaborasi, atau sekadar ngobrol soal
-      chopper dan perjalanan, hubungi KPC melalui kanal di bawah.
-    </p>
-
-    <div class="actions">
-      <a class="btn primary" href="https://www.instagram.com/kpc_nostop/" target="_blank" rel="noopener">Instagram</a>
-      <a class="btn secondary" href="https://wa.me/6280000000000" target="_blank" rel="noopener">WhatsApp</a>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">KPC</div>
-      <div class="copyright">© <span id="year"></span> Kelompok Penunggang Chopper</div>
-    </div>
-
-    <div class="footer-links">
-      <a href="#home">Home</a>
-      <a href="#collection">Collection</a>
-      <a href="#story">Story</a>
-      <a href="#lookbook">Lookbook</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
-</footer>
-<script src="script.js"></script>
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+    <script src="script.js"></script>
 
 </body>
 </html>
